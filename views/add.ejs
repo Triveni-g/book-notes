@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Add New Book</title>
+  <link rel="stylesheet" href="/styles/books.css">
+  <style>
+    body {
+      background: rgba(0,0,0,0.5);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    .popup {
+      background: white;
+      width: 450px;
+      padding: 20px;
+      border-radius: 14px;
+      box-shadow: 0 6px 25px rgba(0,0,0,0.15);
+    }
+
+    .popup h2 {
+      margin-top: 0;
+    }
+
+    label {
+      display: block;
+      margin-top: 10px;
+      font-weight: 600;
+    }
+
+    input, textarea {
+      width: 100%;
+      padding: 8px;
+      margin-top: 5px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+    }
+
+    textarea {
+      height: 90px;
+    }
+
+    .cover-row {
+      display: flex;
+      gap: 8px;
+      margin-top: 4px;
+    }
+
+    .cover-row input {
+      flex: 1;
+    }
+
+    .actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+      margin-top: 15px;
+    }
+
+    .btn {
+      padding: 8px 14px;
+      border-radius: 6px;
+      border: none;
+      cursor: pointer;
+    }
+
+    .btn.cancel {
+      background: #ddd;
+    }
+
+    .btn.save {
+      background: #3f8069;
+      color: white;
+    }
+
+    .btn.fetch {
+      background: #e5f4ec;
+      color: #2f6f5a;
+      border: 1px solid #b7e2c9;
+    }
+
+    .error {
+      margin-top: 6px;
+      color: #b91c1c;
+      font-size: 0.85rem;
+    }
+
+    #coverPreview {
+      margin-top: 10px;
+      max-width: 120px;
+      border-radius: 6px;
+    }
+  </style>
+</head>
+<body>
+  <div class="popup">
+    <h2>Add New Book</h2>
+
+    <!-- One form, two submit buttons -->
+    <form action="/add" method="POST">
+      <!-- Title -->
+      <label>Title *</label>
+      <input
+        type="text"
+        name="title"
+        required
+        value="<%= form.title || '' %>"
+      >
+
+      <!-- Author -->
+      <label>Author *</label>
+      <input
+        type="text"
+        name="author"
+        required
+        value="<%= form.author || '' %>"
+      >
+
+      <!-- Rating -->
+      <label>Rating *</label>
+      <input
+        type="number"
+        name="rating"
+        min="1"
+        max="5"
+        required
+        value="<%= form.rating || '' %>"
+      >
+
+      <!-- Date read -->
+      <label>Date Read *</label>
+      <input
+        type="date"
+        name="read_date"
+        required
+        value="<%= form.read_date || '' %>"
+      >
+
+      <!-- Notes -->
+      <label>Notes</label>
+      <textarea name="review"><%= form.review || '' %></textarea>
+
+      <!-- Book cover -->
+      <label>Book Cover</label>
+      <div class="cover-row">
+        <input
+          type="text"
+          name="cover_url"
+          value="<%= form.cover_url || '' %>"
+        >
+        <!-- this submit triggers fetch logic -->
+        <button type="submit" name="action" value="fetch" class="btn fetch">
+          Fetch Cover
+        </button>
+      </div>
+
+      <% if (coverError) { %>
+        <div class="error"><%= coverError %></div>
+      <% } %>
+
+      <% if (form.cover_url) { %>
+        <img id="coverPreview" src="<%= form.cover_url %>" alt="Cover preview">
+      <% } %>
+
+      <div class="actions">
+        <a href="/books" class="btn cancel">Cancel</a>
+        <!-- this submit triggers save logic -->
+        <button type="submit" name="action" value="save" class="btn save">
+          Save
+        </button>
+      </div>
+    </form>
+  </div>
+</body>
+</html>

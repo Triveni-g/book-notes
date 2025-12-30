@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>My Library</title>
+  <link rel="stylesheet" href="/styles/books.css">  
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <div>
+    <h1>My Library</h1>
+    <form action="/back" method="get">
+      <button class="btn btn-dark">Back</button>
+    </form>
+    <p>Total books: <%= books.length %></p></div>
+        <% if (books.length === 0) { %>
+      <div class="empty-state">
+        <h2>No books yet 📚</h2>
+        <p>Start building your personal library</p>
+        <a href="/add" class="btn btn-dark">Add your first book</a>
+      </div>
+    <% } %>
+
+    <form action="/books" method="GET" class="sort-form">
+      <select name="sort" class="sort-select" onchange="this.form.submit()">
+        <option value="recent" <%= sort === 'recent' ? 'selected' : '' %>>
+          Most Recent
+        </option>
+        <option value="rating" <%= sort === 'rating' ? 'selected' : '' %>>
+          Highest Rated
+        </option>
+      </select>
+    </form>
+    <div>
+      <form  method="get" action="/add">
+        <button class="btn btn-ghost">+ ADD</button>
+      </form>
+    </div>
+    </div>
+    <div class="books-grid">
+      <% books.forEach(book => { %>
+        <div class="book-card">
+          <img 
+            src="<%= book.cover_url || 'https://via.placeholder.com/300x450?text=No+Cover' %>" 
+            alt="Cover of <%= book.title %>">
+
+          <div class="book-title"><%= book.title %></div>
+          <div class="book-author"><%= book.author || 'Unknown author' %></div>
+
+          <div class="book-rating">
+            <% for (let i = 1; i <= 5; i++) { %>
+              <% if (book.rating && i <= book.rating) { %>
+                <span class="star filled">★</span>
+              <% } else { %>
+                <span class="star">☆</span>
+              <% } %>
+            <% } %>
+          </div>
+
+          <p class="book-review">
+            <%= book.review || 'No review yet.' %>
+          </p>
+
+          <div class="book-footer">
+            <% if (book.read_date) { %>
+              Read on: <%= book.read_date %>
+            <% } else { %>
+              Read date not set
+            <% } %>
+          </div>
+          <div class="footer">
+            <form action="/edit" method="post">
+              <input type="hidden" name="id" value="<%= book.id %>">
+              <button class="edit-btn">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pen-fill" viewBox="0 0 16 16">
+                    <path d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001"/>
+                </svg>
+              EDIT</button>
+            </form>
+            <form action="/delete" method="post">
+              <input type="hidden" name="id" value="<%= book.id %>">
+              <button class="del-btn">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
+                  <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5M8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5m3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0"/>
+                </svg>
+                delete</button>
+            </form>
+          </div>
+        </div>
+      <% }) %>
+    </div>
+  </div>
+</body>
+</html>

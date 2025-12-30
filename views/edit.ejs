@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Edit Book</title>
+  <link rel="stylesheet" href="/styles/books.css">
+  <style>
+    /* Same popup style as add.ejs */
+    body {
+      background: rgba(0,0,0,0.5);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    .popup {
+      background: white;
+      width: 450px;
+      padding: 20px;
+      border-radius: 14px;
+      box-shadow: 0 6px 25px rgba(0,0,0,0.15);
+    }
+
+    .popup h2 {
+      margin-top: 0;
+    }
+
+    .popup label {
+      display: block;
+      margin-top: 10px;
+      font-weight: 600;
+    }
+
+    .popup input,
+    .popup textarea {
+      width: 100%;
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      margin-top: 5px;
+    }
+
+    textarea {
+      height: 90px;
+    }
+
+    .actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+      margin-top: 15px;
+    }
+
+    .btn {
+      padding: 8px 14px;
+      border-radius: 6px;
+      border: none;
+      cursor: pointer;
+    }
+
+    .btn.cancel {
+      background: #ddd;
+      height:50px;
+    }
+
+    .btn.save {
+      background: #3f8069;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="popup">
+    <h2>Edit Book</h2>
+
+    <!-- IMPORTANT: post to /update and send id as hidden field -->
+    <form action="/update" method="POST">
+      <input type="hidden" name="id" value="<%= book.id %>">
+
+      <label>Title *</label>
+      <input
+        type="text"
+        name="title"
+        required
+        value="<%= book.title %>"
+      >
+
+      <label>Author *</label>
+      <input
+        type="text"
+        name="author"
+        required
+        value="<%= book.author || '' %>"
+      >
+
+      <label>Rating *</label>
+      <input
+        type="number"
+        name="rating"
+        min="1"
+        max="5"
+        required
+        value="<%= book.rating || '' %>"
+      >
+
+      <label>Date Read *</label>
+      <input
+        type="date"
+        name="read_date"
+        required
+        value="<%= book.read_date ? book.read_date.toISOString().substring(0,10) : '' %>"
+      >
+
+      <label>Notes</label>
+      <textarea name="review"><%= book.review || '' %></textarea>
+
+      <label>Book Cover URL</label>
+      <input
+        type="text"
+        name="cover_url"
+        value="<%= book.cover_url || '' %>"
+      >
+
+      <div class="actions">
+        <a href="/books" class="btn cancel">Cancel</a>
+        <button type="submit" class="btn save">Save Changes</button>
+      </div>
+
+    </form>
+  </div>
+
+</body>
+</html>

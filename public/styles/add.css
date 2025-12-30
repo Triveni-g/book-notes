@@ -1,0 +1,67 @@
+
+    /* Page background dim effect */
+    body {
+      background: rgba(0,0,0,0.5);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    /* Popup card */
+    .popup {
+      background: white;
+      width: 450px;
+      padding: 20px;
+      border-radius: 14px;
+      box-shadow: 0 6px 25px rgba(0,0,0,0.15);
+    }
+
+    .popup h2 {
+      margin-top: 0;
+    }
+
+    .popup label {
+      display: block;
+      margin-top: 10px;
+      font-weight: 600;
+    }
+
+    .popup input, .popup textarea {
+      width: 100%;
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      margin-top: 5px;
+    }
+
+    textarea {
+      height: 90px;
+      margin-right:30px;
+    }
+
+    .actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+      margin-top: 15px;
+    }
+
+    .btn {
+      padding: 8px 14px;
+      border-radius: 6px;
+      border: none;
+      cursor: pointer;
+    }
+
+    .btn.cancel {
+      background: #ddd;
+    }
+
+    .btn.save {
+      background: #3f8069;
+      color: white;
+    }
+  

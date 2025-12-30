@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Register | Book Notes</title>
+  <link rel="stylesheet" href="/styles/auth.css" />
+</head>
+<body>
+
+  <div class="auth-container fade-in">
+    <div class="icon pop">📚</div>
+
+    <h1 class="slide-up">Create Account</h1>
+    <p class="subtitle slide-up delay-1">
+      Start saving your book notes
+    </p>
+
+    <form action="/register" method="POST" class="slide-up delay-2">
+      <input
+        type="email"
+        name="username"
+        placeholder="Email"
+        required
+      />
+      <input
+        type="password"
+        name="password"
+        placeholder="Password"
+        required
+      />
+
+      <button type="submit" class="btn-dark">Register</button>
+    </form>
+    <div class="col-sm-4">
+        <div class="card social-block">
+          <div class="card-body">
+            <a class="btn btn-block" href="/auth/google" role="button">
+              <i class="fab fa-google"></i>
+              Sign Up with Google
+            </a>
+          </div>
+        </div>
+      </div>
+
+
+    <p class="switch slide-up delay-3">
+      Already have an account?
+      <a href="/login">Login</a>
+    </p>
+  </div>
+
+</body>
+</html>
